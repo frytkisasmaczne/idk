@@ -8,8 +8,18 @@ namespace ConsoleApp1
 
 		static int hpos = 20;
 		static int vpos = 20;
+        static TimeSpan time_step = TimeSpan.FromSeconds(.2);
+        static DateTime next_step_time = DateTime.Now;
+
 		static void goon(int direction) {
-			Console.SetCursorPosition(hpos, vpos);
+            try
+            {
+                Console.SetCursorPosition(hpos, vpos);
+            }
+            catch (ArgumentOutOfRangeException ex)
+            {
+                Console.WriteLine(ex);
+            }
 			Console.Write(' ');
 			switch (direction) {
 				case 0:
@@ -25,8 +35,19 @@ namespace ConsoleApp1
 					hpos += 1;
 					break;
 			}
-			Console.SetCursorPosition(hpos, vpos);
-			Console.Write('#');
+            try
+            {
+                Console.SetCursorPosition(hpos, vpos);
+            }
+            catch (ArgumentOutOfRangeException ex)
+            {
+                Console.WriteLine(ex);
+            }
+            finally
+            {
+                Console.Write('#');
+            }
+			
 		}
 		static void Main(string[] args)
         {
@@ -50,8 +71,12 @@ namespace ConsoleApp1
 								break;
 					}
 				}
-				goon(lastdirection);
-				Thread.Sleep(100);
+                if(DateTime.Now>=next_step_time){
+			        goon(lastdirection);
+                    while(DateTime.Now>=next_step_time){
+                        next_step_time = next_step_time.Add(time_step);
+                    }
+                }
 			}
         }
     }
