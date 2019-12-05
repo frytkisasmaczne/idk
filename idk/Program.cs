@@ -9,7 +9,7 @@ namespace ConsoleApp1
 		static int hpos = 20;
 		static int vpos = 20;
         static TimeSpan time_step = TimeSpan.FromSeconds(.2);
-        static DateTime next_step_time = DateTime.Now;
+        static DateTime next_step_time = DateTime.Now.Add(time_step);
 
 		static void goon(int direction) {
             try
