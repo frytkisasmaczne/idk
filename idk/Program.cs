@@ -54,7 +54,7 @@ namespace ConsoleApp1
 			ConsoleKey lastkey = ConsoleKey.Escape;
 			bool keyavailable = false;
 			int lastdirection = 0;
-			while ((keyavailable=Console.KeyAvailable) ? (lastkey = Console.ReadKey().Key) != ConsoleKey.Escape : true) {
+			while ((keyavailable=Console.KeyAvailable) ? (lastkey = Console.ReadKey(true).Key) != ConsoleKey.Escape : true) {
 				if (keyavailable) {
 					switch (lastkey) {
 						case ConsoleKey.W:
