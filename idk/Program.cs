@@ -3,23 +3,22 @@ using System.Threading;
 
 namespace ConsoleApp1
 {
-    class Program
-    {
+  class Program
+  {
 
 		static int hpos = 20;
 		static int vpos = 20;
-        static TimeSpan time_step = TimeSpan.FromSeconds(.2);
-        static DateTime next_step_time = DateTime.Now.Add(time_step);
+    static TimeSpan time_step = TimeSpan.FromSeconds(.2);
+    static DateTime next_step_time = DateTime.Now.Add(time_step);
 
 		static void goon(int direction) {
-            try
-            {
-                Console.SetCursorPosition(hpos, vpos);
-            }
-            catch (ArgumentOutOfRangeException ex)
-            {
-                Console.WriteLine(ex);
-            }
+      try
+      {
+        Console.SetCursorPosition(hpos, vpos);
+      }catch (ArgumentOutOfRangeException ex)
+      {
+        Console.WriteLine(ex);
+      }
 			Console.Write(' ');
 			switch (direction) {
 				case 0:
@@ -35,22 +34,19 @@ namespace ConsoleApp1
 					hpos += 1;
 					break;
 			}
-            try
-            {
-                Console.SetCursorPosition(hpos, vpos);
-            }
-            catch (ArgumentOutOfRangeException ex)
-            {
-                Console.WriteLine(ex);
-            }
-            finally
-            {
-                Console.Write('#');
-            }
-			
+      try
+      {
+        Console.SetCursorPosition(hpos, vpos);
+      }catch (ArgumentOutOfRangeException ex)
+      {
+        Console.WriteLine(ex);
+      }finally
+      {
+        Console.Write('#');
+      }
 		}
 		static void Main(string[] args)
-        {
+    {
 			ConsoleKey lastkey = ConsoleKey.Escape;
 			bool keyavailable = false;
 			int lastdirection = 0;
@@ -62,22 +58,23 @@ namespace ConsoleApp1
 							break;
 						case ConsoleKey.A:
 							lastdirection = 1;
-								break;
+							break;
 						case ConsoleKey.S:
 							lastdirection = 2;
-								break;
+							break;
 						case ConsoleKey.D:
 							lastdirection = 3;
-								break;
+							break;
 					}
 				}
-                if(DateTime.Now>=next_step_time){
-			        goon(lastdirection);
-                    while(DateTime.Now>=next_step_time){
-                        next_step_time = next_step_time.Add(time_step);
-                    }
-                }
-			}
+        if(DateTime.Now>=next_step_time){
+			    goon(lastdirection);
+          while(DateTime.Now>=next_step_time){
+            next_step_time = next_step_time.Add(time_step);
+          }
         }
-    }
+			}//game while
+    }//main
+
+  }
 }
