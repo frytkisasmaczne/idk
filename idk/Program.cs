@@ -6,9 +6,9 @@ namespace ConsoleApp1
   class Program
   {
 
-    static int[] hsnek = { 20, 20, 20, 20, 20, 20, 20, 20, 20 };
-		static int[] vsnek = { 20, 20, 20, 20, 20, 20, 20, 20, 20 };
-    static string snekword = "ok,boomer";
+    static int[] hsnek;
+    static int[] vsnek;
+    static string snekword = "I don't like trains.";//feel free to change the string
     static int head = 0;
     static TimeSpan time_step = TimeSpan.FromSeconds(.2);
     static DateTime next_step_time = DateTime.Now.Add(time_step);
@@ -18,6 +18,7 @@ namespace ConsoleApp1
       {
         return snekword.Length - 1;
       }
+      
       return head - 1;
     }
     static int roundtoindex(int index)
@@ -50,59 +51,66 @@ namespace ConsoleApp1
         writechar(hsnek[roundtoindex(head + i)], vsnek[roundtoindex(head + i)], snekword[i]);
       }
     }
-		static void goon(int direction) {
+    static void goon(int direction) {
       clearchar(hsnek[gettailindex()], vsnek[gettailindex()]);
       switch (direction) {
-				case 0:
+        case 0:
           vsnek[gettailindex()] = vsnek[head] - 1;
           hsnek[gettailindex()] = hsnek[head];
-					break;
-				case 1:
+          break;
+        case 1:
           hsnek[gettailindex()] = hsnek[head] - 1;
           vsnek[gettailindex()] = vsnek[head];
           break;
-				case 2:
+        case 2:
           vsnek[gettailindex()] = vsnek[head] + 1;
           hsnek[gettailindex()] = hsnek[head];
           break;
-				case 3:
+        case 3:
           hsnek[gettailindex()] = hsnek[head] + 1;
           vsnek[gettailindex()] = vsnek[head];
           break;
-			}
+      }
       
       head = gettailindex();
       drawthesnek();
     }
-		static void Main(string[] args)
+    static void Main(string[] args)
     {
-			ConsoleKey lastkey = ConsoleKey.Escape;
-			bool keyavailable = false;
-			int lastdirection = 0;
-			while ((keyavailable=Console.KeyAvailable) ? (lastkey = Console.ReadKey(true).Key) != ConsoleKey.Escape : true) {
-				if (keyavailable) {
-					switch (lastkey) {
-						case ConsoleKey.W:
-							lastdirection = 0;
-							break;
-						case ConsoleKey.A:
-							lastdirection = 1;
-							break;
-						case ConsoleKey.S:
-							lastdirection = 2;
-							break;
-						case ConsoleKey.D:
-							lastdirection = 3;
-							break;
-					}
-				}
+      Array.Resize<int>(ref hsnek, snekword.Length);
+      Array.Resize<int>(ref vsnek, snekword.Length);
+      for(int i = 0; i < snekword.Length; i++)
+      {
+        hsnek[i] = 20;
+        vsnek[i] = 20;
+      }
+      ConsoleKey lastkey = ConsoleKey.Escape;
+      bool keyavailable = false;
+      int lastdirection = 0;
+      while ((keyavailable=Console.KeyAvailable) ? (lastkey = Console.ReadKey(true).Key) != ConsoleKey.Escape : true) {
+        if (keyavailable) {
+          switch (lastkey) {
+            case ConsoleKey.W:
+              lastdirection = 0;
+              break;
+            case ConsoleKey.A:
+              lastdirection = 1;
+              break;
+            case ConsoleKey.S:
+              lastdirection = 2;
+              break;
+            case ConsoleKey.D:
+              lastdirection = 3;
+              break;
+          }
+        }
         if(DateTime.Now>=next_step_time){
-		    goon(lastdirection);
+        goon(lastdirection);
           while(DateTime.Now>=next_step_time){
             next_step_time = next_step_time.Add(time_step);
           }
         }
-			}//game while
+      }//game while
     }//main
 
   }
