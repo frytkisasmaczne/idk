@@ -20,7 +20,7 @@ namespace ConsoleApp1
       }
       return head - 1;
     }
-    static int getnextindex(int index)
+    static int roundtoindex(int index)
     {
       return index % (snekword.Length);
     }
@@ -45,31 +45,32 @@ namespace ConsoleApp1
     }
     static void drawthesnek()
     {
-      int i = head;
-
-      do
+      for (int i = 0; i < snekword.Length; i++)
       {
-        writechar(hsnek[i], vsnek[i], snekword[i]);
-        getnextindex(i);
-      } while (i != head){
-
+        writechar(hsnek[roundtoindex(head + i)], vsnek[roundtoindex(head + i)], snekword[i]);
       }
     }
 		static void goon(int direction) {
-			switch (direction) {
+      clearchar(hsnek[gettailindex()], vsnek[gettailindex()]);
+      switch (direction) {
 				case 0:
           vsnek[gettailindex()] = vsnek[head] - 1;
+          hsnek[gettailindex()] = hsnek[head];
 					break;
 				case 1:
           hsnek[gettailindex()] = hsnek[head] - 1;
-					break;
+          vsnek[gettailindex()] = vsnek[head];
+          break;
 				case 2:
           vsnek[gettailindex()] = vsnek[head] + 1;
-					break;
+          hsnek[gettailindex()] = hsnek[head];
+          break;
 				case 3:
           hsnek[gettailindex()] = hsnek[head] + 1;
-					break;
+          vsnek[gettailindex()] = vsnek[head];
+          break;
 			}
+      
       head = gettailindex();
       drawthesnek();
     }
