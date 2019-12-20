@@ -8,7 +8,7 @@ namespace ConsoleApp1
 
     static int[] hsnek;
     static int[] vsnek;
-    static string snekword = "I don't like trains.";//feel free to change the string
+    static string snekword = "Ok, boomer.";//feel free to change the string
     static int head = 0;
     static TimeSpan time_step = TimeSpan.FromSeconds(.2);
     static DateTime next_step_time = DateTime.Now.Add(time_step);
@@ -77,8 +77,8 @@ namespace ConsoleApp1
     }
     static void Main(string[] args)
     {
-      Array.Resize<int>(ref hsnek, snekword.Length);
-      Array.Resize<int>(ref vsnek, snekword.Length);
+      Array.Resize(ref hsnek, snekword.Length);
+      Array.Resize(ref vsnek, snekword.Length);
       for(int i = 0; i < snekword.Length; i++)
       {
         hsnek[i] = 20;
