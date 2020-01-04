@@ -51,9 +51,7 @@ namespace ConsoleApp1
       {
         writechar(hsnek[i], vsnek[i], snekword[i]);
         getnextindex(i);
-      } while (i != head){
-
-      }
+      } while (i != head);
     }
 		static void goon(int direction) {
 			switch (direction) {
