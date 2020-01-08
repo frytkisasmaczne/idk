@@ -5,7 +5,7 @@ namespace ConsoleApp1
 {
   class Program
   {
-
+    static Random rand = new Random();
     static int[] hsnek;
     static int[] vsnek;
     static string snekword = "Ok, boomer.";//feel free to change the string
@@ -75,6 +75,16 @@ namespace ConsoleApp1
       head = gettailindex();
       drawthesnek();
     }
+    static int[] generatenextdrop(){
+      int[] point = new int[2];
+      point[0]=rand.Next(Console.WindowWidth);
+      point[1]=rand.Next(Console.WindowHeight);
+      //yes, i considered checking against the snake 
+      //position, but since i would have to go through
+      //the entire array it doesn't seem to be worth it
+      return point;
+    }
+
     static void Main(string[] args)
     {
       Array.Resize(ref hsnek, snekword.Length);
