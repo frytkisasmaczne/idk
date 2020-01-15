@@ -9,6 +9,8 @@ namespace ConsoleApp1
     static int[] hsnek;
     static int[] vsnek;
     static string snekword = "Ok, boomer.";//feel free to change the string
+    static int points = 0;
+    static int[] drop = new int[2];
     static int head = 0;
     static TimeSpan time_step = TimeSpan.FromSeconds(.2);
     static DateTime next_step_time = DateTime.Now.Add(time_step);
@@ -42,6 +44,18 @@ namespace ConsoleApp1
       finally
       {
         Console.Write(letter);
+      }
+    }
+    static void writestring(int hpos, int vpos, string tekst)
+    {
+      hpos %= Console.WindowWidth;
+      vpos %= Console.WindowHeight;
+      foreach (char c in tekst)
+      {
+        writechar(hpos, vpos, c);
+        hpos++;
+        hpos %= Console.WindowWidth;
+        vpos %= Console.WindowHeight;
       }
     }
     static void drawthesnek()
@@ -92,6 +106,7 @@ namespace ConsoleApp1
     {
       Array.Resize(ref hsnek, snekword.Length);
       Array.Resize(ref vsnek, snekword.Length);
+      drop = generatenextdrop();
       for (int i = 0; i < snekword.Length; i++)
       {
         hsnek[i] = 20;
@@ -123,13 +138,19 @@ namespace ConsoleApp1
         if (DateTime.Now >= next_step_time)
         {
           goon(lastdirection);
+          if (hsnek[head] == drop[0] && vsnek[head] == drop[1])
+          {
+            points += 1;
+            writestring(0, 0, points.ToString());
+            drop = generatenextdrop();
+          }
+          writechar(drop[0], drop[1], '#');
           while (DateTime.Now >= next_step_time)
           {
             next_step_time = next_step_time.Add(time_step);
           }
-        }
+        }//game updates
       }//game while
     }//main
-
   }
 }
